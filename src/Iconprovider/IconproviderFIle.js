@@ -5,15 +5,17 @@ import {
   FaShieldAlt, 
   FaStethoscope, 
   FaStar, 
-  FaCheckCircle 
+  FaCheckCircle,
+  FaHeartbeat 
 } from 'react-icons/fa';
 
 export const IconProvider = {
-  FaArrowRight, 
-  FaPlay, 
-  FaUserMd, 
-  FaShieldAlt, 
-  FaStethoscope, 
-  FaStar, 
-  FaCheckCircle
+  ArrowRight: FaArrowRight, 
+  Play: FaPlay, 
+  UserMd: FaUserMd, 
+  ShieldAlt: FaShieldAlt, 
+  Stethoscope: FaStethoscope, 
+  Star: FaStar, 
+  CheckCircle: FaCheckCircle,
+  Heartbeat: FaHeartbeat
 };
