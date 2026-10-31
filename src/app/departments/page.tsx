@@ -1,0 +1,11 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { FiActivity, FiArrowUpRight, FiDroplet, FiEye, FiHeart, FiSmile, FiWind } from "react-icons/fi";
+import { Breadcrumb, Container, SectionHeading } from "@/components/ui";
+import { departments, doctors } from "@/data/medical-data";
+
+export const metadata: Metadata = { title: "Departments | Healtho Medical Center", description: "Explore specialist departments and services at Healtho Medical Center." };
+const icons = { cardiology: FiHeart, neurology: FiActivity, ophthalmology: FiEye, "dental-care": FiSmile, diagnostics: FiDroplet, pulmonology: FiWind } as const;
+const colors = { cardiology: "bg-rose-50 text-rose-600", neurology: "bg-violet-50 text-violet-600", ophthalmology: "bg-sky-50 text-sky-600", "dental-care": "bg-amber-50 text-amber-700", diagnostics: "bg-teal-50 text-teal-600", pulmonology: "bg-blue-50 text-blue-600" } as const;
+
+export default function DepartmentsPage() { return <main className="bg-[#f8fafc] py-8 sm:py-12"><Container><Breadcrumb items={[{ label: "Home", href: "/" }, { label: "Departments" }]}/><div className="mt-7"><SectionHeading eyebrow="Specialist services" title="Explore our departments" description="Find the right team and services for your health needs."/></div><div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{departments.map(department => { const key = department.slug as keyof typeof icons; const Icon = icons[key]; const count = doctors.filter(doctor => doctor.department === department.slug).length; return <article key={department.slug} className="rounded-2xl border border-border bg-white p-6 transition hover:-translate-y-1 hover:shadow-card"><span className={`grid h-14 w-14 place-items-center rounded-2xl ${colors[key]}`}><Icon className="text-2xl"/></span><h2 className="mt-5 text-xl font-bold">{department.name}</h2><p className="mt-2 min-h-20 text-sm leading-6 text-muted">{department.overview}</p><div className="mt-4 flex items-center justify-between border-t border-border pt-4"><span className="text-xs font-medium text-muted">{count} listed {count === 1 ? "specialist" : "specialists"}</span><Link href={`/departments/${department.slug}`} className="inline-flex items-center gap-1 text-sm font-bold text-primary">Explore <FiArrowUpRight/></Link></div></article>; })}</div></Container></main>; }

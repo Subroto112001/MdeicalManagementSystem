@@ -1,0 +1,9 @@
+import Link from "next/link";
+import { FiArrowRight, FiCheck } from "react-icons/fi";
+import { Container, SectionHeading } from "@/components/ui";
+const packages = [
+  { name: "Essential wellness", audience: "A confident start to better health", items: ["Doctor consultation", "Core health screening", "Digital report access"], accent: "bg-blue-50 text-blue-700" },
+  { name: "Family health", audience: "Preventive care for the whole family", items: ["Family doctor check-up", "Age-based screening", "Priority report support"], accent: "bg-[#3268f5] text-white", featured: true },
+  { name: "Complete screening", audience: "A deeper picture of your wellbeing", items: ["Specialist consultation", "Comprehensive diagnostics", "Personal care guidance"], accent: "bg-teal-50 text-teal-700" },
+];
+export function PackagesSection() { return <section className="bg-[#f4f7fa] py-16 sm:py-20"><Container><SectionHeading eyebrow="Care made simpler" title="Health packages for every stage" description="Thoughtfully grouped check-ups help you make time for preventive care."/><div className="mt-8 grid gap-5 lg:grid-cols-3">{packages.map(({ name, audience, items, accent, featured }) => <article key={name} className={`rounded-2xl border p-6 ${featured ? "border-primary bg-white shadow-[0_18px_45px_rgba(50,104,245,.13)] lg:-translate-y-2" : "border-border bg-white"}`}><span className={`inline-flex rounded-full px-3 py-1.5 text-xs font-bold ${accent}`}>{featured ? "POPULAR CHOICE" : "HEALTH PACKAGE"}</span><h3 className="mt-5 text-xl font-bold">{name}</h3><p className="mt-2 min-h-12 text-sm leading-6 text-muted">{audience}</p><ul className="mt-5 space-y-3">{items.map(item => <li key={item} className="flex items-center gap-2 text-sm"><FiCheck className="text-emerald-600"/>{item}</li>)}</ul><Link href="/packages" className="mt-6 inline-flex items-center gap-2 text-sm font-bold text-primary">Explore package <FiArrowRight/></Link></article>)}</div></Container></section>; }

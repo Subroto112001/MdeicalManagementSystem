@@ -7,7 +7,9 @@ import {
   FaStar, 
   FaCheckCircle,
   FaHeartbeat 
+  
 } from 'react-icons/fa';
+import { FiCheck, FiArrowRight } from "react-icons/fi";
 
 export const IconProvider = {
   ArrowRight: FaArrowRight, 
@@ -17,5 +19,8 @@ export const IconProvider = {
   Stethoscope: FaStethoscope, 
   Star: FaStar, 
   CheckCircle: FaCheckCircle,
+  Check: FiCheck,
+  FiArrowRight: FiArrowRight,
   Heartbeat: FaHeartbeat
+
 };

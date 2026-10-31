@@ -1,0 +1,2 @@
+import type { ReactNode } from "react";
+export function Accordion({ items }: { items: Array<{ title: string; content: ReactNode }> }) { return <div className="divide-y divide-border rounded-xl border border-border bg-white">{items.map((item) => <details key={item.title} className="group p-4"><summary className="cursor-pointer list-none font-semibold marker:hidden">{item.title}<span className="float-right text-muted transition group-open:rotate-45">＋</span></summary><div className="pt-3 text-sm leading-6 text-muted">{item.content}</div></details>)}</div>; }

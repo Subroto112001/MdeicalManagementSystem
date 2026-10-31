@@ -1,6 +1,6 @@
 import React from "react";
 import { PricingPlan } from "@/types/pricing";
-import { FiCheck, FiArrowRight } from "react-icons/fi";
+import { IconProvider } from "@/Iconprovider/IconproviderFIle";
 
 interface PricingCardProps {
   plan: PricingPlan;
@@ -54,7 +54,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelectPlan }) 
           {features.map((feature, index) => (
             <li key={`${id}-feature-${index}`} className="flex items-start text-sm text-slate-700">
               <span className="flex-shrink-0 w-5 h-5 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mr-3 mt-0.5" aria-hidden="true">
-                <FiCheck className="w-3.5 h-3.5" />
+                <IconProvider.Check className="w-3.5 h-3.5" />
               </span>
               <span className="leading-snug">{feature}</span>
             </li>
@@ -75,7 +75,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({ plan, onSelectPlan }) 
         >
           <span>{buttonText}</span>
           <span className="ml-2 w-5 h-5 rounded-full bg-white/20 flex items-center justify-center transition-transform duration-200 group-hover:translate-x-0.5" aria-hidden="true">
-            <FiArrowRight className="w-3 h-3 text-white" />
+            <IconProvider.FiArrowRight className="w-3 h-3 text-white" />
           </span>
         </button>
       </div>
