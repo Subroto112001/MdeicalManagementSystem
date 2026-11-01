@@ -1,0 +1,19 @@
+"use client";
+import { useMemo, useState } from "react";
+import { FiSearch } from "react-icons/fi";
+import { tests, testCategories } from "@/data/care-data";
+
+const money = (amount: number) => `৳${amount.toLocaleString("en-BD")}`;
+export function TestCatalog() {
+  const [query, setQuery] = useState("");
+  const [category, setCategory] = useState<(typeof testCategories)[number]>("All tests");
+  const filtered = useMemo(() => tests.filter(test => (category === "All tests" || test.category === category) && (!query || `${test.name} ${test.sample} ${test.preparation}`.toLowerCase().includes(query.toLowerCase()))), [query, category]);
+  return <>
+    <div className="mt-7 grid gap-3 rounded-2xl border border-border bg-white p-4 sm:grid-cols-[1fr_auto] sm:items-center"><label className="flex min-h-12 items-center gap-3 rounded-xl border border-border px-3 text-muted"><FiSearch/><span className="sr-only">Search tests</span><input value={query} onChange={event => setQuery(event.target.value)} placeholder="Search test name or sample" className="w-full bg-transparent text-sm text-foreground outline-none"/></label><label className="sr-only" htmlFor="test-category">Test category</label><select id="test-category" value={category} onChange={event => setCategory(event.target.value as typeof category)} className="min-h-12 rounded-xl border border-border bg-white px-3 text-sm font-medium">{testCategories.map(item => <option key={item}>{item}</option>)}</select></div>
+    <p aria-live="polite" className="mt-5 text-sm text-muted"><strong className="text-foreground">{filtered.length}</strong> tests</p>
+    <div className="mt-3 hidden overflow-hidden rounded-2xl border border-border bg-white md:block"><div className="overflow-x-auto"><table className="w-full min-w-[900px] text-left text-sm"><thead className="bg-slate-50 text-xs uppercase tracking-wide text-muted"><tr><th className="px-5 py-4">Test</th><th className="px-4 py-4">Price</th><th className="px-4 py-4">Sample type</th><th className="px-4 py-4">Report time</th><th className="px-5 py-4">Preparation</th></tr></thead><tbody>{filtered.map(test => <tr key={test.id} className="border-t border-border align-top"><td className="px-5 py-4"><strong>{test.name}</strong><span className="mt-1 block text-xs text-primary">{test.category}</span></td><td className="whitespace-nowrap px-4 py-4 font-bold">{money(test.price)}</td><td className="px-4 py-4 text-muted">{test.sample}</td><td className="px-4 py-4 text-muted">{test.turnaround}</td><td className="max-w-xs px-5 py-4 leading-6 text-muted">{test.preparation}</td></tr>)}</tbody></table></div>{filtered.length === 0 && <Empty/>}</div>
+    <div className="mt-3 grid gap-3 md:hidden">{filtered.map(test => <article key={test.id} className="rounded-2xl border border-border bg-white p-4"><div className="flex items-start justify-between gap-3"><div><span className="text-[11px] font-bold uppercase tracking-wide text-primary">{test.category}</span><h2 className="mt-1 font-bold">{test.name}</h2></div><strong className="shrink-0 text-lg">{money(test.price)}</strong></div><dl className="mt-4 grid grid-cols-2 gap-3 border-t border-border pt-3 text-xs"><div><dt className="text-muted">Sample type</dt><dd className="mt-1 font-semibold">{test.sample}</dd></div><div><dt className="text-muted">Report time</dt><dd className="mt-1 font-semibold">{test.turnaround}</dd></div><div className="col-span-2"><dt className="text-muted">Preparation</dt><dd className="mt-1 leading-5">{test.preparation}</dd></div></dl></article>)}{filtered.length === 0 && <Empty/>}</div>
+    <p className="mt-5 text-xs leading-5 text-muted">Preparation guidance is general. Follow the instructions given by your doctor or the diagnostic team.</p>
+  </>;
+}
+function Empty() { return <div className="px-5 py-12 text-center text-sm text-muted">No tests match this search. Try a different term or category.</div>; }

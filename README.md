@@ -1,36 +1,50 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Healtho Medical Center
 
-## Getting Started
+A responsive healthcare clinic website prototype built with Next.js App Router, TypeScript, Tailwind CSS v4, and React. Appointment and contact flows are demos; they do not submit or persist information.
 
-First, run the development server:
+## Setup
+
+Requirements: Node.js 20 or newer and npm.
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open `http://localhost:3000`. For a production build, run `npm run build` and then `npm start`. `npm run lint` runs ESLint.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Set `NEXT_PUBLIC_SITE_URL` to the public site origin before deployment. The default `https://healtho.example` is a placeholder used for metadata, sitemap, and robots output.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project structure
 
-## Learn More
+```text
+src/
+  app/                  App Router pages, route metadata, sitemap, robots, loading/error UI
+    doctors/            Doctor directory and static doctor profile routes
+    departments/        Department list and detail routes
+    appointment/        Client-side, simulated multi-step booking form
+    blog/               Article list and static article detail routes
+  components/
+    layout/             Shared site header and footer
+    sections/           Home page sections and reusable DoctorCard
+    ui/                 Buttons, inputs, headings, breadcrumbs, and other primitives
+  data/                 Prototype clinic, doctor, department, test, article, and gallery data
+  i18n/                 English and Bangla messages and locale provider
+  lib/                  Brand/contact constants
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Change brand colors
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Edit the CSS custom properties at the top of `src/app/globals.css` (`--primary`, `--background`, `--foreground`, `--border`) and their Tailwind mappings in `@theme inline`. The dark clinic blue is also used directly in a few section backgrounds; search for `#10283a` to adjust those.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Add a doctor
 
-## Deploy on Vercel
+Add a `DoctorProfile` record to `src/data/medical-data.ts` with a unique `slug`, department slug, chamber days and schedule, fee, qualifications, and profile details. The directory filters, static profile generation, department roster, sitemap, and featured doctor cards read from this shared dataset. Add the doctor to the department’s data if that department does not exist yet. Replace sample names, images, BMDC identifiers, fees, hours, and credentials with clinic-approved information before launch.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Replace mock data with APIs
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The current pages read from `src/data/*.ts`. A future API integration can replace these imports with typed repository functions (for example, `getDoctors`, `getDoctorBySlug`, `getTests`, and `getPackages`) while keeping page components and card interfaces stable. Keep API credentials server-only, validate external data at the boundary, and add loading/error states for network-backed routes. The appointment and contact forms currently prevent submission and show only local demo feedback; connect them to an approved server endpoint only when the clinic’s privacy, consent, and data handling requirements are ready.
+
+## Prototype content and deployment notes
+
+Doctor records, clinic contact details, prices, schedules, package contents, careers, legal copy, and some photos are placeholders. Verify them with the clinic. The privacy and terms pages are drafts, not approved policies. Configure the real domain with `NEXT_PUBLIC_SITE_URL`, replace placeholder email/phone/address details, and supply clinic-approved photography before public launch.

@@ -21,7 +21,7 @@ export const testimonials = [
 
 export const healthTips = [
   { category: "Heart health", title: "Small daily habits that support a healthier heart", date: "May 18, 2025", image: "photo-1505751172876-fa1923c5c528", read: "5 min read" },
-  { category: "Wellness", title: "A practical guide to getting more restful sleep", date: "May 12, 2025", image: "photo-1511295742362-92c96b0f8aab", read: "4 min read" },
+  { category: "Wellness", title: "A practical guide to getting more restful sleep", date: "May 12, 2025", image: "photo-1559839734-2b71ea197ec2", read: "4 min read" },
   { category: "Nutrition", title: "Building a balanced plate with familiar foods", date: "May 06, 2025", image: "photo-1490645935967-10de6ba17061", read: "6 min read" },
 ];
 
@@ -34,3 +34,4 @@ export const stats = [
 
 export const StarIcon = FiStar;
 export const ArrowIcon = FiArrowUpRight;
+

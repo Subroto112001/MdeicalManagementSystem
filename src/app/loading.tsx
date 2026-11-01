@@ -1,0 +1,2 @@
+import { Container } from "@/components/ui";
+export default function Loading() { return <main className="flex-1 py-12" aria-busy="true" aria-label="Loading page"><Container><div className="animate-pulse space-y-5"><div className="h-4 w-32 rounded bg-slate-200"/><div className="h-10 max-w-xl rounded bg-slate-200"/><div className="h-5 max-w-2xl rounded bg-slate-100"/><div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{Array.from({ length: 6 }, (_, index) => <div key={index} className="h-64 rounded-2xl bg-slate-100"/>)}</div></div></Container></main>; }

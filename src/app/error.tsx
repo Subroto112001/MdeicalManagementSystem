@@ -1,0 +1,4 @@
+"use client";
+import { useEffect } from "react";
+import { FiRefreshCw } from "react-icons/fi";
+export default function ErrorPage({ error, retry }: { error: Error & { digest?: string }; retry: () => void }) { useEffect(() => { console.error(error); }, [error]); return <main className="grid flex-1 place-items-center px-4 py-20 text-center"><div className="max-w-lg"><p className="text-sm font-bold uppercase tracking-widest text-rose-600">Something went wrong</p><h1 className="mt-3 text-3xl font-bold">We couldn’t load this page.</h1><p className="mt-3 text-muted">Please try again. If the issue continues, contact the clinic.</p><button type="button" onClick={() => retry()} className="mt-6 inline-flex min-h-12 items-center gap-2 rounded-xl bg-primary px-5 py-3 font-bold text-white"><FiRefreshCw/> Try again</button></div></main>; }

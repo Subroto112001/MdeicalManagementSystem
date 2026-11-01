@@ -1,0 +1,14 @@
+"use client";
+import { useState } from "react";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { FiMenu, FiX } from "react-icons/fi";
+import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
+import { navLinks } from "@/lib/constants";
+
+const links = [...navLinks, { label: "Departments", href: "/departments" }, { label: "Tests", href: "/tests" }, { label: "Packages", href: "/packages" }, { label: "Health tips", href: "/blog" }];
+export function SiteHeader() {
+  const [open, setOpen] = useState(false);
+  const pathname = usePathname();
+  return <header className="sticky top-0 z-40 border-b border-slate-200/80 bg-white/95 backdrop-blur"><div className="mx-auto flex h-16 max-w-7xl items-center justify-between gap-3 px-4 sm:px-6 lg:px-8"><Link href="/" className="flex shrink-0 items-center gap-2 font-extrabold tracking-tight text-[#17364b]" onClick={() => setOpen(false)}><span className="grid h-9 w-9 place-items-center rounded-xl bg-primary text-lg text-white">H</span><span>Healtho<span className="hidden text-primary sm:inline"> Medical Center</span></span></Link><nav aria-label="Main navigation" className="hidden items-center gap-1 lg:flex">{links.map(link => <Link key={link.href} href={link.href} aria-current={pathname === link.href ? "page" : undefined} className={`rounded-lg px-2.5 py-2 text-xs font-semibold transition hover:bg-blue-50 hover:text-primary xl:px-3 xl:text-sm ${pathname === link.href ? "bg-blue-50 text-primary" : "text-slate-600"}`}>{link.label}</Link>)}</nav><div className="hidden items-center gap-3 lg:flex"><LanguageSwitcher/><Link href="/appointment" className="rounded-xl bg-primary px-4 py-2.5 text-sm font-bold text-white hover:bg-blue-700">Book visit</Link></div><button type="button" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} onClick={() => setOpen(value => !value)} className="grid h-11 w-11 place-items-center rounded-xl border border-border text-lg lg:hidden">{open ? <FiX/> : <FiMenu/>}</button></div>{open && <nav aria-label="Mobile navigation" className="border-t border-border bg-white p-4 shadow-lg lg:hidden"><div className="mx-auto grid max-w-7xl grid-cols-2 gap-2 sm:grid-cols-3">{links.map(link => <Link key={link.href} href={link.href} onClick={() => setOpen(false)} aria-current={pathname === link.href ? "page" : undefined} className={`min-h-11 rounded-xl px-3 py-3 text-sm font-semibold ${pathname === link.href ? "bg-blue-50 text-primary" : "text-slate-700 hover:bg-slate-50"}`}>{link.label}</Link>)}<Link href="/appointment" onClick={() => setOpen(false)} className="min-h-11 rounded-xl bg-primary px-3 py-3 text-sm font-bold text-white">Book an appointment</Link><div className="col-span-2 px-2 py-2 sm:col-span-3"><LanguageSwitcher/></div></div></nav>}</header>;
+}
